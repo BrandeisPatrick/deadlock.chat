@@ -98,13 +98,10 @@ We welcome contributions from the community! Here's how you can help:
 
 ### 🎯 Areas We Need Help With
 
-- **🎨 UI/UX Improvements**: Better mobile experience, accessibility enhancements
-- **📊 Data Visualizations**: New chart types, interactive features
-- **🔧 Performance**: Optimization, caching improvements
-- **🧪 Testing**: Unit tests, integration tests, end-to-end testing
-- **📖 Documentation**: Code comments, API documentation, tutorials
-- **🌐 Internationalization**: Multi-language support
-- **♿ Accessibility**: Screen reader support, keyboard navigation
+- [ ] **Enhanced Match Details**: Expand match search results to include more comprehensive information.
+- [ ] **Player Performance Comparison**: Implement functionality to compare individual player performance against average database statistics.
+- [ ] **Lane Analysis**: Integrate lane-specific data, including lane combo strength, win/loss status, denies, and last hits.
+
 
 ## 📊 Development Commands
 
@@ -136,6 +133,7 @@ vercel --prod             # Deploy to production
 - [ ] **User Authentication**: Implement secure user login and registration.
 - [ ] **Database Integration**: Connect to a database for storing hero and item statistics.
 - [ ] **AI Chat Guidance**: Develop an AI-powered chat for in-match item recommendations and strategic advice.
+
 
 ## 📄 License
 
