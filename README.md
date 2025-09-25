@@ -25,8 +25,8 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/BrandeisPatrick/batlock.git
-cd batlock
+git clone https://github.com/BrandeisPatrick/deadlock-chat.git
+cd deadlock-chat
 
 # Install dependencies
 npm install
@@ -34,8 +34,8 @@ npm install
 # Build CSS assets
 npm run build-css
 
-# Start development server
-npm run dev
+# Start development server (using Vercel CLI)
+vercel dev
 ```
 
 ### Environment Variables
@@ -79,11 +79,11 @@ STEAM_API_KEY=your_steam_api_key_here
 We welcome contributions from the community! Here's how you can help:
 
 ### 🐛 Found a Bug?
-- Check if it's already reported in [Issues](https://github.com/BrandeisPatrick/batlock/issues)
+- Check if it\'s already reported in [Issues](https://github.com/BrandeisPatrick/deadlock-chat/issues)
 - Create a new issue with detailed reproduction steps
 
 ### 💡 Feature Ideas?
-- Open a [Feature Request](https://github.com/BrandeisPatrick/batlock/issues/new)
+- Open a [Feature Request](https://github.com/BrandeisPatrick/deadlock-chat/issues/new)
 - Describe the feature and its benefits to users
 
 ### 🔧 Want to Code?
@@ -133,12 +133,9 @@ vercel --prod             # Deploy to production
 
 ## 🚦 Roadmap
 
-- [ ] **Real-time Match Tracking**: Live match updates and notifications
-- [ ] **Advanced Analytics**: Predictive modeling and meta analysis
-- [ ] **Team Analysis**: Squad performance and synergy statistics
-- [ ] **Tournament Mode**: Competitive match tracking and brackets
-- [ ] **Mobile App**: Native iOS/Android applications
-- [ ] **API for Developers**: Public API for third-party integrations
+- [ ] **User Authentication**: Implement secure user login and registration.
+- [ ] **Database Integration**: Connect to a database for storing hero and item statistics.
+- [ ] **AI Chat Guidance**: Develop an AI-powered chat for in-match item recommendations and strategic advice.
 
 ## 📄 License
 
@@ -153,8 +150,8 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 📞 Support
 
-- **🐛 Bug Reports**: [GitHub Issues](https://github.com/BrandeisPatrick/batlock/issues)
-- **💬 Discussions**: [GitHub Discussions](https://github.com/BrandeisPatrick/batlock/discussions)
+- **🐛 Bug Reports**: [GitHub Issues](https://github.com/BrandeisPatrick/deadlock-chat/issues)
+- **💬 Discussions**: [GitHub Discussions](https://github.com/BrandeisPatrick/deadlock-chat/discussions)
 - **📧 Contact**: Open an issue for direct contact
 
 ---
