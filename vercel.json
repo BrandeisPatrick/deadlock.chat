@@ -1,0 +1,35 @@
+{
+  "functions": {
+    "api/steam-user.mjs": {
+      "maxDuration": 10
+    },
+    "api/deadlock-proxy.mjs": {
+      "maxDuration": 10
+    }
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, PUT, DELETE, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/((?!steam-user|deadlock-proxy).*)",
+      "destination": "https://api.deadlock-api.com/v1/$1"
+    }
+  ]
+}

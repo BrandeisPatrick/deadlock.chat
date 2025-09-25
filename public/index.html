@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Deadlock Stats - Powered by AI</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22 fill=%22none%22><circle cx=%2232%22 cy=%2232%22 r=%2218%22 stroke=%22%23FF2E88%22 stroke-width=%226%22/><path d=%22M32 6v12M32 46v12M6 32h12M46 32h12%22 stroke=%22%23FF2E88%22 stroke-width=%226%22 stroke-linecap=%22round%22/></svg>">
+    
+    <!-- Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    
+    <!-- Section styles -->
+    <link rel="stylesheet" href="styles/app.css">
+    <link rel="stylesheet" href="styles/sections.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Flowing Menu Overlay (visible by default) -->
+        <div class="menu-overlay" id="menuOverlay">
+            <div class="menu">
+                <div class="menu-item" onclick="switchSection('home')">
+                    <a class="menu-link" href="javascript:void(0)">Dashboard</a>
+                    <div class="menu-marquee">
+                        <div class="marquee-content">
+                            <span class="marquee-text">Match Analysis</span>
+                            <div class="marquee-icon">🏠</div>
+                            <span class="marquee-text">Player Stats</span>
+                            <div class="marquee-icon">📊</div>
+                            <span class="marquee-text">Live Data</span>
+                            <div class="marquee-icon">⚡</div>
+                            <span class="marquee-text">Match Analysis</span>
+                            <div class="marquee-icon">🏠</div>
+                            <span class="marquee-text">Player Stats</span>
+                            <div class="marquee-icon">📊</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-item" onclick="switchSection('player-search')">
+                    <a class="menu-link" href="javascript:void(0)">Player Search</a>
+                    <div class="menu-marquee">
+                        <div class="marquee-content">
+                            <span class="marquee-text">Steam Profiles</span>
+                            <div class="marquee-icon">👤</div>
+                            <span class="marquee-text">Match History</span>
+                            <div class="marquee-icon">🎯</div>
+                            <span class="marquee-text">Performance</span>
+                            <div class="marquee-icon">📈</div>
+                            <span class="marquee-text">Steam Profiles</span>
+                            <div class="marquee-icon">👤</div>
+                            <span class="marquee-text">Match History</span>
+                            <div class="marquee-icon">🎯</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-item" onclick="switchSection('match-search')">
+                    <a class="menu-link" href="javascript:void(0)">Match Analysis</a>
+                    <div class="menu-marquee">
+                        <div class="marquee-content">
+                            <span class="marquee-text">Game Analysis</span>
+                            <div class="marquee-icon">🎮</div>
+                            <span class="marquee-text">Team Stats</span>
+                            <div class="marquee-icon">⚔️</div>
+                            <span class="marquee-text">Performance</span>
+                            <div class="marquee-icon">💯</div>
+                            <span class="marquee-text">Game Analysis</span>
+                            <div class="marquee-icon">🎮</div>
+                            <span class="marquee-text">Team Stats</span>
+                            <div class="marquee-icon">⚔️</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-item" onclick="switchSection('hero-stats')">
+                    <a class="menu-link" href="javascript:void(0)">Hero Stats</a>
+                    <div class="menu-marquee">
+                        <div class="marquee-content">
+                            <span class="marquee-text">Hero Data</span>
+                            <div class="marquee-icon">⚡</div>
+                            <span class="marquee-text">Win Rates</span>
+                            <div class="marquee-icon">🏆</div>
+                            <span class="marquee-text">Meta Analysis</span>
+                            <div class="marquee-icon">📊</div>
+                            <span class="marquee-text">Hero Data</span>
+                            <div class="marquee-icon">⚡</div>
+                            <span class="marquee-text">Win Rates</span>
+                            <div class="marquee-icon">🏆</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-item" onclick="switchSection('item-stats')">
+                    <a class="menu-link" href="javascript:void(0)">Item Stats</a>
+                    <div class="menu-marquee">
+                        <div class="marquee-content">
+                            <span class="marquee-text">Item Data</span>
+                            <div class="marquee-icon">🛡️</div>
+                            <span class="marquee-text">Build Paths</span>
+                            <div class="marquee-icon">🔧</div>
+                            <span class="marquee-text">Effectiveness</span>
+                            <div class="marquee-icon">✨</div>
+                            <span class="marquee-text">Item Data</span>
+                            <div class="marquee-icon">🛡️</div>
+                            <span class="marquee-text">Build Paths</span>
+                            <div class="marquee-icon">🔧</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content" id="content">
+            <!-- Header -->
+            <header class="header">
+                <div class="container">
+                    <nav class="nav">
+                        <div class="nav-tabs">
+                            <button class="nav-tab logo-tab" onclick="showMenu()">Deadlock</button>
+                            <button class="nav-tab active" data-section="home">Dashboard</button>
+                            <button class="nav-tab" data-section="player-search">Player</button>
+                            <button class="nav-tab" data-section="match-search">Match</button>
+                            <button class="nav-tab" data-section="hero-stats">Heroes</button>
+                            <button class="nav-tab" data-section="item-stats">Items</button>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+
+            <!-- Sections -->
+            <main class="container">
+                <!-- Home Section (lazy-loaded) -->
+                <section id="home" class="section active"></section>
+
+                <!-- Player Search Section (lazy-loaded) -->
+                <section id="player-search" class="section"></section>
+
+                <!-- Match Search Section (lazy-loaded) -->
+                <section id="match-search" class="section"></section>
+
+                <!-- Hero Stats Section (lazy-loaded) -->
+                <section id="hero-stats" class="section"></section>
+
+                <!-- Item Stats Section (lazy-loaded) -->
+                <section id="item-stats" class="section"></section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Include JavaScript Files -->
+    <script src="js/bigint-utils.js"></script>
+    <script src="config/api-config.js"></script>
+    <script src="hero_mapping/hero-mappings.js"></script>
+    <script type="module" src="js/section-loader.js"></script>
+    <script type="module" src="js/app-init.js"></script>
+
+    <script type="module" src="js/item-stats.js"></script>
+    
+    <!-- Hero stats with refactored architecture -->
+    <script src="js/simple-stats.js"></script>
+
+    <script type="module" src="js/app-shell.js"></script>
+    
+    <!-- Vercel Analytics -->
+    <script defer src="https://cdn.vercel-insights.com/v1/script.debug.js"></script>
+</body>
+</html>

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Mobile Accessibility Test - Deadlock Analytics</title>
+    
+    <!-- Mobile Accessibility Styles -->
+    <link rel="stylesheet" href="js/mobile/mobile-accessibility-styles.css">
+    
+    <style>
+        :root {
+            --primary: #000000;
+            --secondary: #ffffff;
+            --accent: #ff0080;
+            --bg-primary: #050505;
+            --bg-secondary: #0a0a0a;
+            --bg-card: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border: #2a2a2a;
+            --success: #00ff41;
+            --error: #ff0041;
+            --font-primary: 'Inter', sans-serif;
+        }
+        
+        body {
+            font-family: var(--font-primary);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .test-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .test-section h2 {
+            color: var(--accent);
+            margin-top: 0;
+        }
+        
+        .btn {
+            background: var(--secondary);
+            color: var(--primary);
+            border: 2px solid var(--secondary);
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 8px;
+            min-height: 44px;
+            min-width: 44px;
+        }
+        
+        .btn:hover, .btn:focus {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+        
+        .form-group {
+            margin: 16px 0;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-primary);
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-size: 16px;
+            min-height: 44px;
+            box-sizing: border-box;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(255, 0, 128, 0.2);
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 0;
+            margin: 20px 0;
+            border: 2px solid var(--border);
+        }
+        
+        .nav-tab {
+            flex: 1;
+            padding: 12px 16px;
+            background: var(--bg-card);
+            border: none;
+            border-right: 1px solid var(--border);
+            color: var(--text-primary);
+            cursor: pointer;
+            min-height: 44px;
+        }
+        
+        .nav-tab:last-child {
+            border-right: none;
+        }
+        
+        .nav-tab.active {
+            background: var(--accent);
+            color: var(--primary);
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin: 8px;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            min-width: 200px;
+            display: none;
+            z-index: 1000;
+        }
+        
+        .dropdown-menu.show {
+            display: block;
+        }
+        
+        .dropdown-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: var(--text-primary);
+            width: 100%;
+            text-align: left;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dropdown-item:hover, .dropdown-item:focus {
+            background: var(--accent);
+            color: var(--primary);
+        }
+        
+        .hero-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .hero-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .test-results {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 16px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        
+        .success { color: var(--success); }
+        .error { color: var(--error); }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .nav-tab {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            
+            .nav-tab:last-child {
+                border-bottom: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mobile Accessibility Test Page</h1>
+        <p>This page tests the mobile accessibility features implemented for the Deadlock Analytics application.</p>
+        
+        <!-- Test Controls -->
+        <div class="test-section">
+            <h2>Test Controls</h2>
+            <button class="btn" onclick="runAllTests()">Run All Accessibility Tests</button>
+            <button class="btn" onclick="toggleHighContrast()">Toggle High Contrast</button>
+            <button class="btn" onclick="announceTestMessage()">Test Screen Reader</button>
+            <button class="btn" onclick="testKeyboardNavigation()">Test Keyboard Navigation</button>
+        </div>
+        
+        <!-- Navigation Test -->
+        <div class="test-section">
+            <h2>Navigation Test</h2>
+            <nav role="navigation" aria-label="Test navigation">
+                <div class="nav-tabs" role="tablist">
+                    <button class="nav-tab active" role="tab" aria-selected="true" aria-controls="tab1" id="tab-1">
+                        Tab 1
+                    </button>
+                    <button class="nav-tab" role="tab" aria-selected="false" aria-controls="tab2" id="tab-2">
+                        Tab 2
+                    </button>
+                    <button class="nav-tab" role="tab" aria-selected="false" aria-controls="tab3" id="tab-3">
+                        Tab 3
+                    </button>
+                </div>
+            </nav>
+            
+            <div id="tab1" role="tabpanel" aria-labelledby="tab-1">
+                <p>Content for Tab 1. This content should be accessible via keyboard navigation.</p>
+            </div>
+            <div id="tab2" role="tabpanel" aria-labelledby="tab-2" style="display: none;">
+                <p>Content for Tab 2. Use arrow keys to navigate between tabs.</p>
+            </div>
+            <div id="tab3" role="tabpanel" aria-labelledby="tab-3" style="display: none;">
+                <p>Content for Tab 3. Press Enter or Space to activate tabs.</p>
+            </div>
+        </div>
+        
+        <!-- Form Test -->
+        <div class="test-section">
+            <h2>Form Accessibility Test</h2>
+            <form id="test-form">
+                <div class="form-group">
+                    <label for="name-input" class="form-label">Name *</label>
+                    <input type="text" id="name-input" class="form-input" required aria-required="true" 
+                           placeholder="Enter your name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email-input" class="form-label">Email</label>
+                    <input type="email" id="email-input" class="form-input" 
+                           placeholder="Enter your email" aria-describedby="email-help">
+                    <small id="email-help">We'll never share your email with anyone else.</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="country-select" class="form-label">Country</label>
+                    <select id="country-select" class="form-input" aria-label="Select your country">
+                        <option value="">Select a country</option>
+                        <option value="us">United States</option>
+                        <option value="ca">Canada</option>
+                        <option value="uk">United Kingdom</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn">Submit Form</button>
+            </form>
+        </div>
+        
+        <!-- Dropdown Test -->
+        <div class="test-section">
+            <h2>Dropdown Test</h2>
+            <div class="dropdown">
+                <button class="btn" id="dropdown-trigger" aria-haspopup="menu" aria-expanded="false" 
+                        aria-controls="dropdown-menu">
+                    Open Menu
+                </button>
+                <div class="dropdown-menu" id="dropdown-menu" role="menu" aria-labelledby="dropdown-trigger">
+                    <button class="dropdown-item" role="menuitem">Menu Item 1</button>
+                    <button class="dropdown-item" role="menuitem">Menu Item 2</button>
+                    <button class="dropdown-item" role="menuitem">Menu Item 3</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Interactive Cards Test -->
+        <div class="test-section">
+            <h2>Interactive Cards Test</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+                <div class="hero-card" role="button" tabindex="0" aria-label="Hero card for Abrams">
+                    <h3>Abrams</h3>
+                    <p>Tank hero with high durability</p>
+                </div>
+                <div class="hero-card" role="button" tabindex="0" aria-label="Hero card for Bebop">
+                    <h3>Bebop</h3>
+                    <p>Support hero with crowd control</p>
+                </div>
+                <div class="hero-card" role="button" tabindex="0" aria-label="Hero card for Dynamo">
+                    <h3>Dynamo</h3>
+                    <p>Initiator with area control</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Loading State Test -->
+        <div class="test-section">
+            <h2>Loading State Test</h2>
+            <div role="status" aria-live="polite" aria-label="Loading content">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 20px; height: 20px; border: 2px solid var(--border); border-top: 2px solid var(--accent); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                    Loading data...
+                </div>
+            </div>
+            <button class="btn" onclick="simulateLoading()">Simulate Loading</button>
+        </div>
+        
+        <!-- Test Results -->
+        <div class="test-section">
+            <h2>Test Results</h2>
+            <div id="test-results" class="test-results">
+                Click "Run All Accessibility Tests" to see results here.
+            </div>
+        </div>
+    </div>
+    
+    <!-- Mobile Accessibility Scripts -->
+    <script src="js/mobile/MobileAccessibilityController.js"></script>
+    <script src="js/mobile/mobile-accessibility-init.js"></script>
+    <script src="js/mobile/test-accessibility.js"></script>
+    
+    <script>
+        // Test functions
+        let accessibilityController = null;
+        let tester = null;
+        
+        // Wait for accessibility controller to be ready
+        document.addEventListener('mobileAccessibilityReady', (e) => {
+            accessibilityController = e.detail.controller;
+            console.log('✅ Accessibility controller ready');
+        });
+        
+        // Initialize tester
+        document.addEventListener('DOMContentLoaded', () => {
+            tester = new MobileAccessibilityTester();
+        });
+        
+        async function runAllTests() {
+            if (!tester) {
+                alert('Test suite not ready yet. Please wait a moment and try again.');
+                return;
+            }
+            
+            const resultsDiv = document.getElementById('test-results');
+            resultsDiv.innerHTML = 'Running tests...';
+            
+            try {
+                const results = await tester.runAllTests();
+                
+                const totalTests = results.length;
+                const passedTests = results.filter(r => r.passed).length;
+                const failedTests = totalTests - passedTests;
+                
+                resultsDiv.innerHTML = `
+                    <div class="success">✅ Tests completed!</div>
+                    <div>Total: ${totalTests} | Passed: <span class="success">${passedTests}</span> | Failed: <span class="error">${failedTests}</span></div>
+                    <div>Success Rate: ${((passedTests / totalTests) * 100).toFixed(1)}%</div>
+                    <br>
+                    <details>
+                        <summary>View detailed results</summary>
+                        <div style="margin-top: 12px;">
+                            ${results.map(r => `
+                                <div style="margin: 4px 0; ${r.passed ? 'color: var(--success)' : 'color: var(--error)'}">
+                                    ${r.passed ? '✅' : '❌'} ${r.category}: ${r.testName}
+                                    ${r.error ? `<br>&nbsp;&nbsp;&nbsp;&nbsp;Error: ${r.error}` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </details>
+                `;
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="error">❌ Test failed: ${error.message}</div>`;
+            }
+        }
+        
+        function toggleHighContrast() {
+            if (accessibilityController) {
+                accessibilityController.toggleHighContrastMode();
+            } else {
+                // Fallback toggle
+                document.body.classList.toggle('high-contrast-mode');
+            }
+        }
+        
+        function announceTestMessage() {
+            if (accessibilityController) {
+                accessibilityController.announceMessage('This is a test announcement for screen readers');
+            } else {
+                alert('Screen reader test: This would be announced to screen readers');
+            }
+        }
+        
+        function testKeyboardNavigation() {
+            alert('Keyboard Navigation Test:\n\n' +
+                  '• Use Tab to navigate between elements\n' +
+                  '• Use Arrow keys to navigate tabs\n' +
+                  '• Use Enter/Space to activate buttons\n' +
+                  '• Use Escape to close dropdowns\n' +
+                  '• Try Alt+M to toggle menu (if available)');
+        }
+        
+        function simulateLoading() {
+            const loadingDiv = document.querySelector('[role="status"]');
+            const originalContent = loadingDiv.innerHTML;
+            
+            loadingDiv.innerHTML = '<div style="display: flex; align-items: center; gap: 12px;"><div style="width: 20px; height: 20px; border: 2px solid var(--border); border-top: 2px solid var(--accent); border-radius: 50%; animation: spin 1s linear infinite;"></div>Simulating data load...</div>';
+            
+            if (accessibilityController) {
+                accessibilityController.announceMessage('Loading simulation started');
+            }
+            
+            setTimeout(() => {
+                loadingDiv.innerHTML = '<div class="success">✅ Data loaded successfully!</div>';
+                if (accessibilityController) {
+                    accessibilityController.announceMessage('Data loaded successfully');
+                }
+                
+                setTimeout(() => {
+                    loadingDiv.innerHTML = originalContent;
+                }, 3000);
+            }, 2000);
+        }
+        
+        // Tab navigation
+        document.querySelectorAll('.nav-tab').forEach((tab, index) => {
+            tab.addEventListener('click', () => {
+                // Update tab states
+                document.querySelectorAll('.nav-tab').forEach(t => {
+                    t.classList.remove('active');
+                    t.setAttribute('aria-selected', 'false');
+                });
+                
+                tab.classList.add('active');
+                tab.setAttribute('aria-selected', 'true');
+                
+                // Update panels
+                document.querySelectorAll('[role="tabpanel"]').forEach(panel => {
+                    panel.style.display = 'none';
+                });
+                
+                const panelId = tab.getAttribute('aria-controls');
+                const panel = document.getElementById(panelId);
+                if (panel) {
+                    panel.style.display = 'block';
+                }
+                
+                if (accessibilityController) {
+                    accessibilityController.announceMessage(`Switched to ${tab.textContent.trim()}`);
+                }
+            });
+            
+            // Keyboard navigation for tabs
+            tab.addEventListener('keydown', (e) => {
+                const tabs = Array.from(document.querySelectorAll('.nav-tab'));
+                const currentIndex = tabs.indexOf(tab);
+                
+                switch (e.key) {
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        const prevIndex = currentIndex === 0 ? tabs.length - 1 : currentIndex - 1;
+                        tabs[prevIndex].focus();
+                        tabs[prevIndex].click();
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        const nextIndex = (currentIndex + 1) % tabs.length;
+                        tabs[nextIndex].focus();
+                        tabs[nextIndex].click();
+                        break;
+                }
+            });
+        });
+        
+        // Dropdown functionality
+        const dropdownTrigger = document.getElementById('dropdown-trigger');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        
+        dropdownTrigger.addEventListener('click', () => {
+            const isOpen = dropdownMenu.classList.contains('show');
+            
+            if (isOpen) {
+                dropdownMenu.classList.remove('show');
+                dropdownTrigger.setAttribute('aria-expanded', 'false');
+            } else {
+                dropdownMenu.classList.add('show');
+                dropdownTrigger.setAttribute('aria-expanded', 'true');
+                
+                // Focus first menu item
+                const firstItem = dropdownMenu.querySelector('[role="menuitem"]');
+                if (firstItem) {
+                    firstItem.focus();
+                }
+            }
+        });
+        
+        // Close dropdown on outside click
+        document.addEventListener('click', (e) => {
+            if (!dropdownTrigger.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.classList.remove('show');
+                dropdownTrigger.setAttribute('aria-expanded', 'false');
+            }
+        });
+        
+        // Dropdown keyboard navigation
+        dropdownMenu.addEventListener('keydown', (e) => {
+            const items = Array.from(dropdownMenu.querySelectorAll('[role="menuitem"]'));
+            const currentIndex = items.indexOf(document.activeElement);
+            
+            switch (e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    const nextIndex = (currentIndex + 1) % items.length;
+                    items[nextIndex].focus();
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    const prevIndex = currentIndex === 0 ? items.length - 1 : currentIndex - 1;
+                    items[prevIndex].focus();
+                    break;
+                case 'Escape':
+                    e.preventDefault();
+                    dropdownMenu.classList.remove('show');
+                    dropdownTrigger.setAttribute('aria-expanded', 'false');
+                    dropdownTrigger.focus();
+                    break;
+            }
+        });
+        
+        // Hero card interactions
+        document.querySelectorAll('.hero-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const heroName = card.querySelector('h3').textContent;
+                if (accessibilityController) {
+                    accessibilityController.announceMessage(`Selected ${heroName} hero card`);
+                }
+            });
+            
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    card.click();
+                }
+            });
+        });
+        
+        // Form validation
+        document.getElementById('test-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const nameInput = document.getElementById('name-input');
+            const emailInput = document.getElementById('email-input');
+            
+            let isValid = true;
+            
+            if (!nameInput.value.trim()) {
+                nameInput.setAttribute('aria-invalid', 'true');
+                if (accessibilityController) {
+                    accessibilityController.announceMessage('Error: Name is required', 'assertive');
+                }
+                isValid = false;
+            } else {
+                nameInput.setAttribute('aria-invalid', 'false');
+            }
+            
+            if (emailInput.value && !emailInput.checkValidity()) {
+                emailInput.setAttribute('aria-invalid', 'true');
+                if (accessibilityController) {
+                    accessibilityController.announceMessage('Error: Please enter a valid email address', 'assertive');
+                }
+                isValid = false;
+            } else {
+                emailInput.setAttribute('aria-invalid', 'false');
+            }
+            
+            if (isValid) {
+                if (accessibilityController) {
+                    accessibilityController.announceMessage('Form submitted successfully');
+                }
+                alert('Form submitted successfully!');
+            }
+        });
+        
+        // Add spin animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

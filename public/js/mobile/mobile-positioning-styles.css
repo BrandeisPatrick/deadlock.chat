@@ -1,0 +1,368 @@
+/**
+ * Mobile UI Element Positioning Styles
+ * Styles for dropdowns, modals, tooltips, and other positioned elements
+ */
+
+/* ===== POSITIONED DROPDOWNS ===== */
+.positioned-dropdown {
+    position: fixed !important;
+    z-index: 1000;
+    background: var(--bg-secondary, #1a1a1a);
+    border: 1px solid var(--border-color, #333);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    min-width: 160px;
+    max-width: 90vw;
+    max-height: 70vh;
+    overflow-y: auto;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.positioned-dropdown.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Dropdown placement indicators */
+.positioned-dropdown[data-placement^="bottom"] {
+    transform-origin: top center;
+}
+
+.positioned-dropdown[data-placement^="top"] {
+    transform-origin: bottom center;
+}
+
+.positioned-dropdown[data-placement$="left"] {
+    transform-origin: top left;
+}
+
+.positioned-dropdown[data-placement$="right"] {
+    transform-origin: top right;
+}
+
+/* Dropdown items */
+.positioned-dropdown .dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 8px 16px;
+    color: var(--text-primary, #ffffff);
+    text-decoration: none;
+    border: none;
+    background: none;
+    text-align: left;
+    font-size: 14px;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.positioned-dropdown .dropdown-item:hover,
+.positioned-dropdown .dropdown-item:focus {
+    background-color: var(--bg-hover, #2a2a2a);
+    outline: none;
+}
+
+.positioned-dropdown .dropdown-item:active {
+    background-color: var(--bg-active, #333);
+}
+
+.positioned-dropdown .dropdown-divider {
+    height: 1px;
+    margin: 4px 0;
+    background-color: var(--border-color, #333);
+    border: none;
+}
+
+/* Mobile-specific dropdown adjustments */
+@media (max-width: 768px) {
+    .positioned-dropdown {
+        min-width: 200px;
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+    
+    .positioned-dropdown .dropdown-item {
+        padding: 12px 16px;
+        font-size: 16px;
+        min-height: 44px; /* Touch target size */
+        display: flex;
+        align-items: center;
+    }
+}
+
+/* ===== POSITIONED MODALS ===== */
+.positioned-modal {
+    position: fixed !important;
+    z-index: 1050;
+    background: var(--bg-primary, #0f0f0f);
+    border: 1px solid var(--border-color, #333);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.positioned-modal.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.positioned-modal .modal-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-color, #333);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.positioned-modal .modal-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary, #ffffff);
+}
+
+.positioned-modal .modal-close {
+    background: none;
+    border: none;
+    color: var(--text-secondary, #888);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 4px;
+    min-width: 32px;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background-color 0.15s ease;
+}
+
+.positioned-modal .modal-close:hover {
+    background-color: var(--bg-hover, #2a2a2a);
+    color: var(--text-primary, #ffffff);
+}
+
+.positioned-modal .modal-body {
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.positioned-modal .modal-footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border-color, #333);
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+/* Mobile modal adjustments */
+@media (max-width: 768px) {
+    .positioned-modal {
+        border-radius: 16px;
+        margin: 8px;
+    }
+    
+    .positioned-modal .modal-header {
+        padding: 20px;
+    }
+    
+    .positioned-modal .modal-title {
+        font-size: 20px;
+    }
+    
+    .positioned-modal .modal-close {
+        min-width: 44px;
+        min-height: 44px;
+        font-size: 20px;
+    }
+    
+    .positioned-modal .modal-body {
+        padding: 20px;
+    }
+    
+    .positioned-modal .modal-footer {
+        padding: 20px;
+        flex-direction: column-reverse;
+    }
+    
+    .positioned-modal .modal-footer .btn {
+        width: 100%;
+        min-height: 44px;
+    }
+}
+
+/* ===== POSITIONED TOOLTIPS ===== */
+.positioned-tooltip {
+    position: fixed !important;
+    z-index: 1100;
+    background: var(--bg-tooltip, #333);
+    color: var(--text-tooltip, #ffffff);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: 1.4;
+    max-width: 250px;
+    word-wrap: break-word;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    pointer-events: none;
+}
+
+.positioned-tooltip.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Tooltip arrows */
+.positioned-tooltip::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+}
+
+.positioned-tooltip[data-placement="top"]::before {
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-color: var(--bg-tooltip, #333);
+}
+
+.positioned-tooltip[data-placement="bottom"]::before {
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-color: var(--bg-tooltip, #333);
+}
+
+.positioned-tooltip[data-placement="left"]::before {
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left-color: var(--bg-tooltip, #333);
+}
+
+.positioned-tooltip[data-placement="right"]::before {
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-right-color: var(--bg-tooltip, #333);
+}
+
+/* Mobile tooltip adjustments */
+@media (max-width: 768px) {
+    .positioned-tooltip {
+        font-size: 14px;
+        padding: 10px 14px;
+        max-width: 280px;
+    }
+}
+
+/* ===== MODAL BACKDROP ===== */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.modal-backdrop.show {
+    opacity: 1;
+}
+
+/* ===== UTILITY CLASSES ===== */
+.position-fixed {
+    position: fixed !important;
+}
+
+.position-absolute {
+    position: absolute !important;
+}
+
+.z-dropdown {
+    z-index: 1000 !important;
+}
+
+.z-modal {
+    z-index: 1050 !important;
+}
+
+.z-tooltip {
+    z-index: 1100 !important;
+}
+
+/* Prevent body scroll when modal is open */
+.modal-open {
+    overflow: hidden;
+}
+
+/* Focus management for accessibility */
+.positioned-dropdown:focus-within,
+.positioned-modal:focus-within,
+.positioned-tooltip:focus-within {
+    outline: 2px solid var(--focus-color, #007bff);
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .positioned-dropdown,
+    .positioned-modal {
+        border-width: 2px;
+        box-shadow: none;
+    }
+    
+    .positioned-tooltip {
+        border: 1px solid currentColor;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .positioned-dropdown,
+    .positioned-modal,
+    .positioned-tooltip,
+    .modal-backdrop {
+        transition: none;
+    }
+}
+
+/* ===== RESPONSIVE BREAKPOINTS ===== */
+@media (max-width: 480px) {
+    .positioned-dropdown {
+        max-width: 95vw;
+        border-radius: 12px;
+    }
+    
+    .positioned-modal {
+        border-radius: 20px;
+        margin: 4px;
+    }
+    
+    .positioned-tooltip {
+        max-width: 90vw;
+        font-size: 14px;
+    }
+}
+
+/* Landscape orientation adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+    .positioned-modal {
+        max-height: 85vh;
+    }
+    
+    .positioned-dropdown {
+        max-height: 60vh;
+    }
+}

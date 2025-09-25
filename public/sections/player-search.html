@@ -1,0 +1,147 @@
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">Player Search</h2>
+    <span class="status status-success">
+      <span>●</span>
+      <span>Live Data</span>
+    </span>
+  </div>
+
+  <!-- Saved Profiles Section -->
+  <div class="saved-profiles-section" style="
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: 0;
+    ">
+    <label class="form-label" style="margin-bottom: 0.5rem; display: block;">Quick Access Profiles:</label>
+    <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+      <div style="flex: 1; min-width: 200px; max-width: 300px;">
+        <button id="profileDropdownButton" type="button" style="
+            width: 100%;
+            padding: var(--space-md);
+            background: var(--primary);
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+            border-radius: 0;
+            cursor: pointer;
+            font-weight: 800;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s var(--ease-out);
+          " onmouseover="this.style.borderWidth='4px'; this.style.transform='translateX(2px)'; this.style.boxShadow='0 0 0 2px var(--accent)';"
+          onmouseout="this.style.borderWidth='2px'; this.style.transform='translateX(0px)'; this.style.boxShadow='none';">
+          <span class="dropdown-text">Select Saved Profile</span>
+          <span style="font-size: 1.2rem;">↓</span>
+        </button>
+        <div id="profileDropdownMenu" style="
+            display: none;
+            position: absolute;
+            z-index: 1000;
+            width: 300px;
+            max-height: 300px;
+            overflow-y: auto;
+            background: var(--primary);
+            border: 2px solid var(--secondary);
+            margin-top: 4px;
+          ">
+          <div class="dropdown-option profile-option" data-value="" style="
+              padding: var(--space-md);
+              border-bottom: 1px solid var(--border);
+              cursor: pointer;
+              color: var(--text-secondary);
+              font-style: italic;
+            ">
+            <span>No saved profiles</span>
+          </div>
+        </div>
+      </div>
+      <button id="saveProfileBtn" style="
+          display: none;
+          padding: var(--space-md);
+          background: var(--primary);
+          border: 2px solid var(--accent);
+          color: var(--accent);
+          border-radius: 0;
+          cursor: pointer;
+          font-weight: 800;
+          text-transform: uppercase;
+          transition: all 0.3s var(--ease-out);
+        " onmouseover="this.style.borderWidth='4px'; this.style.fontWeight='900';"
+        onmouseout="this.style.borderWidth='2px'; this.style.fontWeight='800';" 
+        title="Save current search as profile">
+        💾 Save
+      </button>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Steam Profile or Player Name</label>
+    <input
+      type="text"
+      class="form-input"
+      placeholder="Enter Steam profile URL or player name..."
+      id="playerSearchInput"
+      value="https://steamcommunity.com/profiles/76561198148166542/"
+    >
+  </div>
+
+  <button class="btn" id="playerSearchBtn">
+    <span>🔍</span>
+    <span>Search Player</span>
+  </button>
+
+  <div class="results-container" id="playerResults">
+    <!-- Player info card -->
+    <div id="playerInfoCard" class="hidden"></div>
+
+    <!-- Match history section -->
+    <div id="playerSearchResults" class="hidden">
+      <div class="match-history-header">
+        <h3 class="match-history-title">
+          Recent Matches
+          <span id="matchesCountBadge" class="matches-count-badge" style="display: none;">
+            <span id="matchesCount">0</span>
+          </span>
+        </h3>
+        <div class="view-toggle">
+          <button id="cardViewBtn" class="view-btn active" onclick="toggleMatchView('card')">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <rect x="2" y="2" width="5" height="5" rx="1" stroke="currentColor"/>
+              <rect x="9" y="2" width="5" height="5" rx="1" stroke="currentColor"/>
+              <rect x="2" y="9" width="5" height="5" rx="1" stroke="currentColor"/>
+              <rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor"/>
+            </svg>
+            Card View
+          </button>
+          <button id="tableViewBtn" class="view-btn" onclick="toggleMatchView('table')">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <rect x="2" y="2" width="12" height="2" fill="currentColor"/>
+              <rect x="2" y="6" width="12" height="1" fill="currentColor" opacity="0.3"/>
+              <rect x="2" y="9" width="12" height="1" fill="currentColor" opacity="0.3"/>
+              <rect x="2" y="12" width="12" height="1" fill="currentColor" opacity="0.3"/>
+            </svg>
+            Table View
+          </button>
+        </div>
+      </div>
+
+      <!-- Loading progress -->
+      <div id="matchesLoadingProgress" class="matches-loading-progress" style="display: none;">
+        <div class="progress-bar">
+          <div id="matchesProgressFill" class="progress-fill"></div>
+        </div>
+        <div id="matchesProgressText" class="progress-text">Loading matches...</div>
+      </div>
+
+      <!-- Match tabs wrapper for both views -->
+      <div id="matchTabsWrapper" class="match-tabs-wrapper card-view">
+        <!-- Match cards/table will be populated here -->
+      </div>
+    </div>
+  </div>
+</div>
+

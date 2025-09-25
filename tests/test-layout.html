@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Mobile Layout System Test</title>
+    
+    <!-- Include the mobile layout styles -->
+    <link rel="stylesheet" href="js/mobile/mobile-layout-styles.css">
+    
+    <style>
+        :root {
+            /* Basic color system for testing */
+            --primary: #000000;
+            --secondary: #ffffff;
+            --accent: #ff0080;
+            --bg-primary: #050505;
+            --bg-secondary: #0a0a0a;
+            --bg-card: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border: #2a2a2a;
+            --success: #00ff41;
+            --error: #ff0041;
+            
+            /* Typography */
+            --font-primary: 'Inter', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+            
+            /* Spacing - will be updated by layout system */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            
+            /* Animations */
+            --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-primary);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: var(--space-lg);
+        }
+        
+        .test-section {
+            margin-bottom: var(--space-2xl);
+            padding: var(--space-lg);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+        
+        .test-section h2 {
+            margin-bottom: var(--space-lg);
+            color: var(--accent);
+        }
+        
+        .test-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: var(--space-md);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .status-display {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: var(--space-md);
+            margin-bottom: var(--space-lg);
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+        }
+        
+        .controls {
+            display: flex;
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s var(--ease-out);
+        }
+        
+        .btn:hover {
+            opacity: 0.8;
+            transform: translateY(-1px);
+        }
+        
+        .demo-hero-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: var(--space-md);
+            text-align: center;
+        }
+        
+        .demo-hero-image {
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin: 0 auto var(--space-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .demo-hero-name {
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .demo-hero-stats {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <h1>Mobile Layout System Test</h1>
+    
+    <!-- System Status -->
+    <div class="test-section">
+        <h2>System Status</h2>
+        <div id="systemStatus" class="status-display">
+            Initializing...
+        </div>
+        
+        <div class="controls">
+            <button class="btn" onclick="refreshStatus()">Refresh Status</button>
+            <button class="btn" onclick="runTests()">Run Tests</button>
+            <button class="btn" onclick="debugSystem()">Debug Info</button>
+        </div>
+    </div>
+    
+    <!-- Responsive Grid Test -->
+    <div class="test-section">
+        <h2>Responsive Grid Test</h2>
+        <p>This grid should adapt to different container sizes:</p>
+        
+        <div id="testGrid" class="responsive-grid" data-grid="card-grid" data-container-query="xs:0,sm:320,md:480,lg:768">
+            <div class="test-item">Grid Item 1</div>
+            <div class="test-item">Grid Item 2</div>
+            <div class="test-item">Grid Item 3</div>
+            <div class="test-item">Grid Item 4</div>
+            <div class="test-item">Grid Item 5</div>
+            <div class="test-item">Grid Item 6</div>
+        </div>
+    </div>
+    
+    <!-- Hero Stats Layout Test -->
+    <div class="test-section">
+        <h2>Hero Stats Layout Test</h2>
+        <p>This should mimic the hero statistics layout:</p>
+        
+        <div id="heroStatsTest" class="hero-cards-grid" data-grid="hero-stats" data-container-query="xs:0,sm:320,md:480,lg:768,xl:1024">
+            <div class="demo-hero-card hero-card">
+                <div class="demo-hero-image">🦸</div>
+                <div class="demo-hero-name">Hero Alpha</div>
+                <div class="demo-hero-stats">Win Rate: 65%</div>
+            </div>
+            <div class="demo-hero-card hero-card">
+                <div class="demo-hero-image">🦹</div>
+                <div class="demo-hero-name">Hero Beta</div>
+                <div class="demo-hero-stats">Win Rate: 72%</div>
+            </div>
+            <div class="demo-hero-card hero-card">
+                <div class="demo-hero-image">🧙</div>
+                <div class="demo-hero-name">Hero Gamma</div>
+                <div class="demo-hero-stats">Win Rate: 58%</div>
+            </div>
+            <div class="demo-hero-card hero-card">
+                <div class="demo-hero-image">🥷</div>
+                <div class="demo-hero-name">Hero Delta</div>
+                <div class="demo-hero-stats">Win Rate: 69%</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Compact Grid Test -->
+    <div class="test-section">
+        <h2>Compact Grid Test</h2>
+        <p>This should show a compact grid layout:</p>
+        
+        <div id="compactGrid" class="responsive-grid" data-grid="compact-grid" data-container-query="xs:0,sm:320,md:480,lg:768">
+            <div class="test-item">1</div>
+            <div class="test-item">2</div>
+            <div class="test-item">3</div>
+            <div class="test-item">4</div>
+            <div class="test-item">5</div>
+            <div class="test-item">6</div>
+            <div class="test-item">7</div>
+            <div class="test-item">8</div>
+            <div class="test-item">9</div>
+            <div class="test-item">10</div>
+            <div class="test-item">11</div>
+            <div class="test-item">12</div>
+        </div>
+    </div>
+    
+    <!-- Responsive Table Test -->
+    <div class="test-section">
+        <h2>Responsive Table Test</h2>
+        <p>This table should convert to cards on mobile:</p>
+        
+        <table class="responsive-table" data-responsive>
+            <thead>
+                <tr>
+                    <th>Hero</th>
+                    <th>Win Rate</th>
+                    <th>Pick Rate</th>
+                    <th>KDA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Hero Alpha</td>
+                    <td>65%</td>
+                    <td>12%</td>
+                    <td>2.1</td>
+                </tr>
+                <tr>
+                    <td>Hero Beta</td>
+                    <td>72%</td>
+                    <td>8%</td>
+                    <td>2.8</td>
+                </tr>
+                <tr>
+                    <td>Hero Gamma</td>
+                    <td>58%</td>
+                    <td>15%</td>
+                    <td>1.9</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Container Query Test -->
+    <div class="test-section">
+        <h2>Container Query Test</h2>
+        <p>Resize this container to see container queries in action:</p>
+        
+        <div style="resize: horizontal; overflow: auto; border: 2px solid var(--border); min-width: 200px; max-width: 100%;">
+            <div id="containerTest" data-container-query="xs:0,sm:320,md:480,lg:768" style="padding: var(--space-md); background: var(--bg-card);">
+                <div class="container-xs">XS: Very narrow container</div>
+                <div class="container-sm">SM: Small container (320px+)</div>
+                <div class="container-md">MD: Medium container (480px+)</div>
+                <div class="container-lg">LG: Large container (768px+)</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Test Results -->
+    <div class="test-section">
+        <h2>Test Results</h2>
+        <div id="testResults" class="status-display">
+            Click "Run Tests" to see results...
+        </div>
+    </div>
+    
+    <!-- Include mobile layout scripts -->
+    <script src="js/mobile/mobile-utils.js"></script>
+    <script src="js/mobile/ViewportManager.js"></script>
+    <script src="js/mobile/ContainerQueryPolyfill.js"></script>
+    <script src="js/mobile/MobileLayoutController.js"></script>
+    <script src="js/mobile/ResponsiveGridSystem.js"></script>
+    <script src="js/mobile/mobile-layout-init.js"></script>
+    <script src="js/mobile/test-layout-system.js"></script>
+    
+    <script>
+        // Test page functionality
+        function refreshStatus() {
+            const statusEl = document.getElementById('systemStatus');
+            
+            if (window.mobileLayoutSystem) {
+                const status = getLayoutSystemStatus();
+                statusEl.innerHTML = `
+                    <strong>✅ Mobile Layout System Active</strong><br>
+                    Version: ${status.version}<br>
+                    Device: ${status.viewport.deviceType} (${status.viewport.width}x${status.viewport.height})<br>
+                    Platform: ${status.viewport.platform}<br>
+                    Orientation: ${status.viewport.orientation}<br>
+                    Active Grids: ${status.gridCount}<br>
+                    Container Queries: ${status.containerQueryStatus.isPolyfillActive ? 'Polyfill' : 'Native'}
+                `;
+            } else {
+                statusEl.innerHTML = '<strong>❌ Mobile Layout System Not Available</strong>';
+            }
+        }
+        
+        function runTests() {
+            const resultsEl = document.getElementById('testResults');
+            resultsEl.innerHTML = 'Running tests...';
+            
+            if (window.runLayoutSystemTests) {
+                window.runLayoutSystemTests().then(results => {
+                    resultsEl.innerHTML = `
+                        <strong>Test Results:</strong><br>
+                        ✅ Passed: ${results.passed}<br>
+                        ❌ Failed: ${results.failed}<br>
+                        📈 Success Rate: ${results.successRate.toFixed(1)}%<br>
+                        <br>
+                        Check console for detailed results.
+                    `;
+                });
+            } else {
+                resultsEl.innerHTML = '<strong>❌ Test system not available</strong>';
+            }
+        }
+        
+        function debugSystem() {
+            if (window.debugLayoutSystem) {
+                window.debugLayoutSystem();
+                alert('Debug info logged to console');
+            } else {
+                alert('Debug system not available');
+            }
+        }
+        
+        // Auto-refresh status when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                refreshStatus();
+            }, 1000);
+        });
+        
+        // Refresh status on viewport changes
+        if (window.mobileLayoutSystem) {
+            window.mobileLayoutSystem.viewportManager.onViewportChange(() => {
+                setTimeout(refreshStatus, 100);
+            });
+        }
+    </script>
+</body>
+</html>

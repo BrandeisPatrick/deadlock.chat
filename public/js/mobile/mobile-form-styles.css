@@ -1,0 +1,397 @@
+/**
+ * Mobile Form Optimization Styles
+ * CSS styles for enhanced mobile form interaction
+ */
+
+/* iOS-specific optimizations */
+.ios-optimized {
+    -webkit-appearance: none !important;
+    -webkit-border-radius: 0 !important;
+    border-radius: 0 !important;
+    font-size: 16px !important; /* Prevent zoom on iOS */
+}
+
+/* Mobile-optimized inputs */
+.mobile-optimized-input {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    box-sizing: border-box;
+}
+
+.mobile-optimized-input:focus {
+    outline: none;
+    transform: none; /* Prevent layout shifts */
+}
+
+/* Mobile-optimized selects */
+.mobile-optimized-select {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+}
+
+.mobile-optimized-select:focus {
+    outline: none;
+}
+
+/* Select focus state */
+.select-focused {
+    border-width: 3px !important;
+    box-shadow: 0 0 0 2px var(--accent, #ff0080) !important;
+}
+
+/* Select change animation */
+.select-changed {
+    transform: scale(1.02);
+    transition: transform 0.2s ease;
+}
+
+/* Input focus state */
+.input-focused {
+    border-width: 3px !important;
+    box-shadow: 0 0 0 2px var(--accent, #ff0080) !important;
+}
+
+/* Touch feedback for interactive elements */
+.touch-active {
+    transform: scale(0.98) !important;
+    opacity: 0.8 !important;
+    transition: transform 0.1s ease, opacity 0.1s ease !important;
+}
+
+/* Validation message styles */
+.validation-message {
+    position: absolute;
+    z-index: 1000;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    max-width: 300px;
+    word-wrap: break-word;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+    transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.validation-error {
+    background-color: #ff0041;
+    color: #ffffff;
+}
+
+.validation-success {
+    background-color: #00ff41;
+    color: #000000;
+}
+
+.validation-warning {
+    background-color: #ffaa00;
+    color: #000000;
+}
+
+/* Dropdown enhancements */
+.dropdown-menu {
+    max-height: 60vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+}
+
+/* Profile dropdown mobile optimizations */
+#profileDropdownMenu {
+    max-height: 250px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+#profileDropdownMenu .profile-option,
+#profileDropdownMenu .dropdown-option {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#profileDropdownMenu .profile-option:hover,
+#profileDropdownMenu .dropdown-option:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Virtual keyboard adjustments */
+.virtual-keyboard-open {
+    /* Styles when virtual keyboard is open */
+}
+
+.virtual-keyboard-open .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.virtual-keyboard-open .form-input:focus {
+    /* Ensure focused input stays visible */
+    position: relative;
+    z-index: 10;
+}
+
+/* Mobile-specific form improvements */
+@media (max-width: 768px) {
+    /* Larger touch targets on mobile */
+    .form-input,
+    .mobile-optimized-input {
+        min-height: 48px;
+        padding: 12px 16px;
+        font-size: 16px; /* Prevent iOS zoom */
+    }
+    
+    select.form-input,
+    .mobile-optimized-select {
+        min-height: 48px;
+        padding: 12px 16px;
+        font-size: 16px;
+    }
+    
+    /* Button optimizations */
+    .btn,
+    button {
+        min-height: 48px;
+        min-width: 48px;
+        padding: 12px 20px;
+        font-size: 16px;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Profile dropdown mobile positioning */
+    #profileDropdownButton {
+        min-height: 48px;
+        font-size: 16px;
+        width: 100%;
+    }
+    
+    #profileDropdownMenu {
+        position: fixed !important;
+        left: 16px;
+        right: 16px;
+        width: auto !important;
+        max-width: none !important;
+        max-height: 250px;
+        z-index: 2000;
+    }
+    
+    /* Validation messages on mobile */
+    .validation-message {
+        max-width: calc(100vw - 32px);
+        font-size: 14px;
+        padding: 10px 14px;
+    }
+    
+    /* Form group spacing */
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    /* Form labels */
+    .form-label {
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+    .form-input,
+    .mobile-optimized-input {
+        min-height: 44px;
+        padding: 10px 14px;
+        font-size: 16px;
+    }
+    
+    select.form-input,
+    .mobile-optimized-select {
+        min-height: 44px;
+        padding: 10px 14px;
+    }
+    
+    .btn,
+    button {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+    
+    #profileDropdownMenu {
+        left: 8px;
+        right: 8px;
+        max-height: 200px;
+    }
+    
+    .validation-message {
+        max-width: calc(100vw - 16px);
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+}
+
+/* Landscape mobile optimization */
+@media (max-height: 500px) and (orientation: landscape) {
+    .validation-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 90vw;
+        z-index: 9999;
+    }
+    
+    #profileDropdownMenu {
+        max-height: 150px;
+    }
+    
+    .virtual-keyboard-open .form-input:focus {
+        /* Ensure input visibility in landscape with keyboard */
+        scroll-margin-top: 60px;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .validation-error {
+        background-color: #ff0000;
+        border: 2px solid #ffffff;
+    }
+    
+    .validation-success {
+        background-color: #00ff00;
+        border: 2px solid #000000;
+    }
+    
+    .validation-warning {
+        background-color: #ffff00;
+        border: 2px solid #000000;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .validation-message,
+    .touch-active,
+    .select-changed,
+    .dropdown-menu {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    .validation-message {
+        box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* Focus visible for keyboard navigation */
+.mobile-optimized-input:focus-visible,
+.mobile-optimized-select:focus-visible {
+    outline: 2px solid var(--accent, #ff0080);
+    outline-offset: 2px;
+}
+
+/* Improve select dropdown arrow on mobile */
+select.mobile-optimized-select {
+    background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), 
+                      linear-gradient(135deg, currentColor 50%, transparent 50%);
+    background-position: calc(100% - 20px) calc(1em + 2px), 
+                         calc(100% - 15px) calc(1em + 2px);
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    padding-right: 40px;
+}
+
+/* Loading state for form submissions */
+.form-loading .btn,
+.form-loading button {
+    opacity: 0.6;
+    pointer-events: none;
+    position: relative;
+}
+
+.form-loading .btn::after,
+.form-loading button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Accessibility improvements */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Ensure proper spacing for mobile forms */
+.mobile-form-container {
+    padding: 16px;
+}
+
+.mobile-form-container .form-group:last-child {
+    margin-bottom: 0;
+}
+
+/* Improve checkbox and radio button touch targets */
+input[type="checkbox"],
+input[type="radio"] {
+    min-width: 20px;
+    min-height: 20px;
+    margin-right: 8px;
+}
+
+/* Label improvements for mobile */
+label {
+    cursor: pointer;
+    display: block;
+    padding: 4px 0;
+}
+
+/* File input improvements */
+input[type="file"] {
+    padding: 8px;
+    border: 2px dashed var(--border, #ccc);
+    background: transparent;
+    cursor: pointer;
+}
+
+input[type="file"]:focus {
+    border-color: var(--accent, #ff0080);
+    outline: none;
+}

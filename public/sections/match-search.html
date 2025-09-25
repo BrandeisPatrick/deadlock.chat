@@ -1,0 +1,29 @@
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">Match Analysis</h2>
+    <span class="status status-success">
+      <span>●</span>
+      <span>Live Data</span>
+    </span>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Match ID</label>
+    <input
+      type="text"
+      class="form-input"
+      placeholder="Enter match ID or leave blank for default (30603272)..."
+      id="matchSearchInput"
+    >
+  </div>
+
+  <button class="btn" onclick="searchMatch()">
+    <span>🎮</span>
+    <span>Analyze Match</span>
+  </button>
+
+  <div class="results-container" id="matchResults">
+    <!-- Results will be populated here -->
+  </div>
+</div>
+

@@ -1,0 +1,217 @@
+/* Component Styles for Refactored Application */
+
+/* Loading Spinner */
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border);
+    border-top: 3px solid var(--accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Filter Controls */
+.filter-controls {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.filter-controls select,
+.filter-controls input {
+    padding: 0.5rem;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+.filter-controls select:focus,
+.filter-controls input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(255, 0, 128, 0.2);
+}
+
+/* View Toggle Buttons */
+.view-btn {
+    padding: 0.5rem 1rem;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s ease;
+}
+
+.view-btn:hover {
+    background: var(--bg-secondary);
+}
+
+.view-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+/* Table Styles */
+.item-stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.item-stats-table th {
+    padding: 1rem;
+    text-align: left;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+}
+
+.item-stats-table th.sortable {
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease;
+}
+
+.item-stats-table th.sortable:hover {
+    background: var(--bg-card);
+}
+
+.item-stats-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.item-stats-table tr:hover {
+    background: var(--bg-secondary);
+}
+
+/* Item Image */
+.item-image {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border: 1px solid var(--border);
+    background: rgba(0,0,0,0.1);
+    border-radius: 4px;
+}
+
+/* Tier Badge */
+.tier-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: white;
+}
+
+.tier-badge.tier-1 { background: #4a5568; }
+.tier-badge.tier-2 { background: #2d3748; }
+.tier-badge.tier-3 { background: #1a202c; }
+.tier-badge.tier-4 { background: #000000; }
+
+/* Category Colors */
+.category-weapon { color: #ff6b6b; }
+.category-vitality { color: #51cf66; }
+.category-spirit { color: #74c0fc; }
+
+/* Win Rate Colors */
+.winrate-high { color: var(--success); font-weight: 600; }
+.winrate-low { color: var(--error); font-weight: 600; }
+.winrate-neutral { color: var(--text-primary); font-weight: 600; }
+
+/* Status Indicators */
+.status {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.status-success { color: var(--success); }
+.status-error { color: var(--error); }
+.status-loading { color: var(--text-secondary); }
+
+/* Error States */
+.error-container {
+    text-align: center;
+    padding: 2rem;
+}
+
+.error-icon {
+    color: var(--error);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.error-message {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.retry-button {
+    padding: 0.5rem 1rem;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: opacity 0.2s ease;
+}
+
+.retry-button:hover {
+    opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .filter-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-controls > div {
+        justify-content: space-between;
+    }
+    
+    .item-stats-table {
+        font-size: 0.875rem;
+    }
+    
+    .item-stats-table th,
+    .item-stats-table td {
+        padding: 0.5rem;
+    }
+    
+    .item-image {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.font-mono { font-family: var(--font-mono); }
+.font-primary { font-family: var(--font-primary); }
+
+.hidden { display: none !important; }
+.visible { display: block !important; }
+
+.mb-1 { margin-bottom: 1rem; }
+.mt-1 { margin-top: 1rem; }
+.p-1 { padding: 1rem; }
+.p-2 { padding: 2rem; }

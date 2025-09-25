@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile UI Positioning System Test</title>
+    
+    <!-- Load mobile positioning styles -->
+    <link rel="stylesheet" href="js/mobile/mobile-positioning-styles.css">
+    
+    <style>
+        :root {
+            --bg-primary: #0f0f0f;
+            --bg-secondary: #1a1a1a;
+            --bg-hover: #2a2a2a;
+            --bg-active: #333;
+            --bg-tooltip: #333;
+            --text-primary: #ffffff;
+            --text-secondary: #888;
+            --text-tooltip: #ffffff;
+            --border-color: #333;
+            --focus-color: #007bff;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            margin: 0 0 16px 0;
+            font-size: 32px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            margin: 0;
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        
+        .test-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        
+        .test-section h2 {
+            margin: 0 0 16px 0;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .test-section p {
+            margin: 0 0 20px 0;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+        }
+        
+        .test-btn {
+            padding: 12px 16px;
+            background: var(--bg-hover);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-align: center;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+        }
+        
+        .test-btn:hover {
+            background: var(--bg-active);
+            transform: translateY(-1px);
+        }
+        
+        .test-btn:active {
+            transform: translateY(0);
+        }
+        
+        .test-btn.primary {
+            background: #007bff;
+            border-color: #007bff;
+        }
+        
+        .test-btn.primary:hover {
+            background: #0056b3;
+        }
+        
+        .test-btn.danger {
+            background: #dc3545;
+            border-color: #dc3545;
+        }
+        
+        .test-btn.danger:hover {
+            background: #c82333;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            min-width: 160px;
+            z-index: 1000;
+        }
+        
+        .dropdown-menu.show {
+            display: block;
+        }
+        
+        .dropdown-item {
+            display: block;
+            width: 100%;
+            padding: 8px 16px;
+            color: var(--text-primary);
+            text-decoration: none;
+            border: none;
+            background: none;
+            text-align: left;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+        
+        .dropdown-item:hover {
+            background-color: var(--bg-hover);
+        }
+        
+        .dropdown-divider {
+            height: 1px;
+            margin: 4px 0;
+            background-color: var(--border-color);
+            border: none;
+        }
+        
+        .modal {
+            display: none;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        .modal.show {
+            display: block;
+        }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .modal-title {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px;
+            min-width: 32px;
+            min-height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: background-color 0.15s ease;
+        }
+        
+        .modal-close:hover {
+            background-color: var(--bg-hover);
+            color: var(--text-primary);
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+        
+        .edge-test-area {
+            position: relative;
+            height: 200px;
+            background: var(--bg-secondary);
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .edge-btn {
+            position: absolute;
+            padding: 8px 12px;
+            background: var(--bg-hover);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .edge-btn.top-left { top: 10px; left: 10px; }
+        .edge-btn.top-right { top: 10px; right: 10px; }
+        .edge-btn.bottom-left { bottom: 10px; left: 10px; }
+        .edge-btn.bottom-right { bottom: 10px; right: 10px; }
+        .edge-btn.center { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        
+        .info-panel {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 20px;
+        }
+        
+        .info-panel h3 {
+            margin: 0 0 12px 0;
+            font-size: 16px;
+        }
+        
+        .info-panel pre {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 12px;
+            font-size: 12px;
+            overflow-x: auto;
+            margin: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .button-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-footer {
+                flex-direction: column-reverse;
+            }
+            
+            .modal-footer .test-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Mobile UI Positioning System</h1>
+            <p>Test dropdown, modal, and tooltip positioning across different screen sizes and orientations</p>
+        </div>
+        
+        <div class="test-grid">
+            <!-- Dropdown Tests -->
+            <div class="test-section">
+                <h2>Dropdown Positioning</h2>
+                <p>Test dropdown menus that automatically position themselves within viewport bounds</p>
+                
+                <div class="button-grid">
+                    <button class="test-btn dropdown-toggle" data-dropdown-target="#dropdown1">
+                        Basic Dropdown
+                    </button>
+                    <button class="test-btn dropdown-toggle" data-dropdown-target="#dropdown2">
+                        Long Menu
+                    </button>
+                    <button class="test-btn dropdown-toggle" data-dropdown-target="#dropdown3">
+                        Profile Menu
+                    </button>
+                </div>
+                
+                <!-- Dropdown Menus -->
+                <div id="dropdown1" class="dropdown-menu">
+                    <a href="#" class="dropdown-item">Action</a>
+                    <a href="#" class="dropdown-item">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">Something else</a>
+                </div>
+                
+                <div id="dropdown2" class="dropdown-menu">
+                    <a href="#" class="dropdown-item">Dashboard</a>
+                    <a href="#" class="dropdown-item">Analytics</a>
+                    <a href="#" class="dropdown-item">Hero Statistics</a>
+                    <a href="#" class="dropdown-item">Match History</a>
+                    <a href="#" class="dropdown-item">Leaderboards</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">Settings</a>
+                    <a href="#" class="dropdown-item">Help</a>
+                    <a href="#" class="dropdown-item">Logout</a>
+                </div>
+                
+                <div id="dropdown3" class="dropdown-menu">
+                    <a href="#" class="dropdown-item">👤 View Profile</a>
+                    <a href="#" class="dropdown-item">⚙️ Settings</a>
+                    <a href="#" class="dropdown-item">📊 Statistics</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">🚪 Logout</a>
+                </div>
+            </div>
+            
+            <!-- Modal Tests -->
+            <div class="test-section">
+                <h2>Modal Positioning</h2>
+                <p>Test modal dialogs that center themselves within safe areas</p>
+                
+                <div class="button-grid">
+                    <button class="test-btn primary" data-modal-target="#modal1">
+                        Small Modal
+                    </button>
+                    <button class="test-btn primary" data-modal-target="#modal2">
+                        Large Modal
+                    </button>
+                    <button class="test-btn primary" data-modal-target="#modal3">
+                        Form Modal
+                    </button>
+                </div>
+                
+                <!-- Modals -->
+                <div id="modal1" class="modal">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Small Modal</h3>
+                        <button class="modal-close" data-bs-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>This is a small modal for testing positioning on different screen sizes.</p>
+                        <p>It should always stay within the viewport bounds and safe areas.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="test-btn" data-bs-dismiss="modal">Cancel</button>
+                        <button class="test-btn primary">OK</button>
+                    </div>
+                </div>
+                
+                <div id="modal2" class="modal">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Large Modal</h3>
+                        <button class="modal-close" data-bs-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Large Content Modal</h4>
+                        <p>This modal contains a lot of content to test how the positioning system handles larger modals.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+                        <p>Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="test-btn" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                
+                <div id="modal3" class="modal">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Contact Form</h3>
+                        <button class="modal-close" data-bs-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div style="margin-bottom: 16px;">
+                                <label for="name" style="display: block; margin-bottom: 4px;">Name:</label>
+                                <input type="text" id="name" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; background: var(--bg-hover); color: var(--text-primary);">
+                            </div>
+                            <div style="margin-bottom: 16px;">
+                                <label for="email" style="display: block; margin-bottom: 4px;">Email:</label>
+                                <input type="email" id="email" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; background: var(--bg-hover); color: var(--text-primary);">
+                            </div>
+                            <div style="margin-bottom: 16px;">
+                                <label for="message" style="display: block; margin-bottom: 4px;">Message:</label>
+                                <textarea id="message" rows="4" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; background: var(--bg-hover); color: var(--text-primary); resize: vertical;"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="test-btn" data-bs-dismiss="modal">Cancel</button>
+                        <button class="test-btn primary">Send Message</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tooltip Tests -->
+            <div class="test-section">
+                <h2>Tooltip Positioning</h2>
+                <p>Test tooltips that automatically position themselves to stay visible</p>
+                
+                <div class="button-grid">
+                    <button class="test-btn" data-tooltip="This tooltip appears on hover and positions itself automatically">
+                        Hover Tooltip
+                    </button>
+                    <button class="test-btn" title="This is a native title tooltip that gets enhanced">
+                        Title Tooltip
+                    </button>
+                    <button class="test-btn" data-tooltip="Long tooltip text that should wrap properly and position itself to stay within the viewport bounds even on small screens">
+                        Long Tooltip
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Edge Case Tests -->
+            <div class="test-section">
+                <h2>Edge Case Testing</h2>
+                <p>Test positioning at screen edges and corners</p>
+                
+                <div class="edge-test-area">
+                    <button class="edge-btn top-left dropdown-toggle" data-dropdown-target="#edge-dropdown">TL</button>
+                    <button class="edge-btn top-right dropdown-toggle" data-dropdown-target="#edge-dropdown">TR</button>
+                    <button class="edge-btn bottom-left dropdown-toggle" data-dropdown-target="#edge-dropdown">BL</button>
+                    <button class="edge-btn bottom-right dropdown-toggle" data-dropdown-target="#edge-dropdown">BR</button>
+                    <button class="edge-btn center dropdown-toggle" data-dropdown-target="#edge-dropdown">Center</button>
+                </div>
+                
+                <div id="edge-dropdown" class="dropdown-menu">
+                    <a href="#" class="dropdown-item">Edge Test 1</a>
+                    <a href="#" class="dropdown-item">Edge Test 2</a>
+                    <a href="#" class="dropdown-item">Edge Test 3</a>
+                </div>
+                
+                <div class="button-grid">
+                    <button class="test-btn" onclick="testViewportChanges()">
+                        Test Viewport Changes
+                    </button>
+                    <button class="test-btn danger" onclick="clearAllElements()">
+                        Clear All
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-panel">
+            <h3>System Information</h3>
+            <pre id="system-info">Loading...</pre>
+        </div>
+    </div>
+    
+    <!-- Load dependencies -->
+    <script src="js/mobile/ViewportManager.js"></script>
+    <script src="js/mobile/MobileLayoutController.js"></script>
+    <script src="js/mobile/mobile-positioning-init.js"></script>
+    <script src="js/mobile/test-positioning-system.js"></script>
+    
+    <script>
+        // Wait for positioning system to initialize
+        document.addEventListener('mobilePositioningReady', (e) => {
+            const { viewportManager, layoutController } = e.detail;
+            
+            // Update system info
+            updateSystemInfo(viewportManager);
+            
+            // Update info on viewport changes
+            viewportManager.onViewportChange(() => {
+                updateSystemInfo(viewportManager);
+            });
+        });
+        
+        function updateSystemInfo(viewportManager) {
+            const viewport = viewportManager.getCurrentViewport();
+            const safeAreas = viewportManager.getSafeAreas();
+            
+            const info = {
+                viewport: {
+                    width: viewport.width,
+                    height: viewport.height,
+                    devicePixelRatio: viewport.devicePixelRatio,
+                    orientation: viewport.orientation,
+                    deviceType: viewport.deviceType,
+                    platform: viewport.platform
+                },
+                safeAreas: safeAreas,
+                userAgent: navigator.userAgent.substring(0, 100) + '...'
+            };
+            
+            document.getElementById('system-info').textContent = JSON.stringify(info, null, 2);
+        }
+        
+        function testViewportChanges() {
+            const positioning = window.getMobilePositioning();
+            if (positioning && positioning.getLayoutController()) {
+                // Simulate viewport change
+                positioning.getLayoutController().updateLayout();
+                alert('Viewport change simulated - all positioned elements should reposition');
+            }
+        }
+        
+        function clearAllElements() {
+            // Close all dropdowns
+            document.querySelectorAll('.dropdown-menu.show').forEach(dropdown => {
+                dropdown.classList.remove('show');
+            });
+            
+            // Close all modals
+            document.querySelectorAll('.modal.show').forEach(modal => {
+                modal.classList.remove('show');
+            });
+            
+            // Remove backdrops
+            document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+                backdrop.remove();
+            });
+            
+            // Remove positioned elements
+            document.querySelectorAll('.positioned-dropdown, .positioned-modal, .positioned-tooltip').forEach(el => {
+                el.remove();
+            });
+            
+            document.body.classList.remove('modal-open');
+        }
+        
+        // Handle escape key globally
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                clearAllElements();
+            }
+        });
+    </script>
+</body>
+</html>

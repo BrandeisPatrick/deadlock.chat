@@ -1,0 +1,43 @@
+<div class="card">
+  <div class="card-header hero-stats-header">
+    <h2 class="card-title">Hero Statistics</h2>
+    <span class="status status-loading" id="heroStatsStatus">
+      <span>●</span>
+      <span>Loading</span>
+    </span>
+  </div>
+
+  <!-- Hero Stats Controls -->
+  <div class="hero-stats-controls">
+    <div class="hero-top-row">
+      <select id="heroSortSelect" class="form-input hero-sort-select">
+        <option value="winrate">Win Rate</option>
+        <option value="pickrate">Pick Rate</option>
+        <option value="kda">KDA</option>
+        <option value="alphabetical">Alphabetical</option>
+      </select>
+
+      <button id="refreshHeroStats" class="btn btn-secondary">
+        <span>Refresh</span>
+      </button>
+
+      <div class="hero-view-controls">
+        <button class="btn btn-secondary" data-view="cards">Cards</button>
+        <button class="btn btn-secondary" data-view="table">Table</button>
+      </div>
+    </div>
+
+    <button id="toggleLeakedHeroes" class="btn btn-secondary" style="display: none;">
+      <span id="leakedButtonText">Show Leaked</span>
+    </button>
+  </div>
+
+  <!-- Hero Stats Container -->
+  <div id="hero-stats-container">
+    <div class="loading">
+      <div class="spinner"></div>
+      <span>Loading hero statistics...</span>
+    </div>
+  </div>
+
+</div>

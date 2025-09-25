@@ -1,0 +1,388 @@
+/**
+ * Platform-Specific Styles
+ * iOS Safari, Android Chrome, and PWA optimizations
+ */
+
+/* Base platform optimizations */
+.platform-ios,
+.platform-android,
+.platform-windows {
+    /* Ensure proper touch handling */
+    touch-action: manipulation;
+}
+
+/* iOS-specific optimizations */
+.platform-ios {
+    /* iOS system font stack */
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
+    
+    /* iOS-style smooth scrolling */
+    -webkit-overflow-scrolling: touch;
+    
+    /* Safe area support */
+    padding-top: env(safe-area-inset-top);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+}
+
+/* iOS button styling */
+.platform-ios .btn,
+.platform-ios button {
+    -webkit-appearance: none;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+/* iOS card styling */
+.platform-ios .card {
+    border-radius: 12px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* iOS modal styling */
+.platform-ios .modal {
+    border-radius: 12px 12px 0 0;
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+}
+
+/* iOS form inputs */
+.platform-ios input[type="text"],
+.platform-ios input[type="email"],
+.platform-ios input[type="password"],
+.platform-ios input[type="search"],
+.platform-ios textarea {
+    font-size: 16px !important; /* Prevent zoom on focus */
+    -webkit-appearance: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* iOS scrollbars */
+.platform-ios ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+}
+
+.platform-ios ::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.platform-ios ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+}
+
+.platform-ios ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* iOS safe area utilities */
+.platform-ios .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+}
+
+.platform-ios .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.platform-ios .safe-area-left {
+    padding-left: env(safe-area-inset-left);
+}
+
+.platform-ios .safe-area-right {
+    padding-right: env(safe-area-inset-right);
+}
+
+/* iOS header with safe area */
+.platform-ios .header,
+.platform-ios .navbar {
+    padding-top: calc(1rem + env(safe-area-inset-top));
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+/* iOS footer with safe area */
+.platform-ios .footer,
+.platform-ios .bottom-nav {
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+/* Android-specific optimizations */
+.platform-android {
+    /* Android system font stack */
+    font-family: 'Roboto', 'Noto Sans', 'Droid Sans', system-ui, sans-serif;
+}
+
+/* Android Material Design buttons */
+.platform-android .btn,
+.platform-android button {
+    border-radius: 4px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background-clip: padding-box;
+    transition: box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.platform-android .btn:active,
+.platform-android button:active {
+    transform: translateY(1px);
+}
+
+/* Android Material Design cards */
+.platform-android .card {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.2s ease;
+}
+
+.platform-android .card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Android modal styling */
+.platform-android .modal {
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Android form inputs */
+.platform-android input[type="text"],
+.platform-android input[type="email"],
+.platform-android input[type="password"],
+.platform-android input[type="search"],
+.platform-android textarea {
+    border-radius: 4px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    transition: border-color 0.2s ease;
+}
+
+.platform-android input:focus,
+.platform-android textarea:focus {
+    border-bottom-color: var(--accent, #ff0080);
+}
+
+/* Material Design elevation classes */
+.platform-android .elevation-1 {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.platform-android .elevation-2 {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.platform-android .elevation-3 {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.platform-android .elevation-4 {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+/* Android ripple effect */
+.platform-android .ripple-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.platform-android .ripple-effect::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+.platform-android .ripple-effect:active::before {
+    width: 200px;
+    height: 200px;
+}
+
+/* PWA-specific styles */
+.standalone-app {
+    /* Remove browser UI elements when in standalone mode */
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.standalone-app .browser-only {
+    display: none !important;
+}
+
+.standalone-app .pwa-only {
+    display: block !important;
+}
+
+/* PWA status bar styling */
+.standalone-app .status-bar {
+    height: env(safe-area-inset-top);
+    background: var(--bg-primary, #050505);
+}
+
+/* PWA navigation styling */
+.standalone-app .app-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+/* Orientation-specific styles */
+.orientation-portrait {
+    /* Portrait-specific optimizations */
+}
+
+.orientation-landscape {
+    /* Landscape-specific optimizations */
+}
+
+.orientation-landscape .mobile-menu {
+    /* Adjust menu for landscape */
+    max-height: 60vh;
+}
+
+.orientation-landscape .modal {
+    /* Adjust modals for landscape */
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+/* Touch-specific optimizations */
+.touch-device {
+    /* Larger touch targets */
+}
+
+.touch-device .btn,
+.touch-device button,
+.touch-device .clickable {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 12px 16px;
+}
+
+.touch-device .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* High DPI display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .platform-ios .card,
+    .platform-android .card {
+        /* Sharper borders on high DPI displays */
+        border-width: 0.5px;
+    }
+}
+
+/* Dark mode optimizations for platforms */
+@media (prefers-color-scheme: dark) {
+    .platform-ios .card {
+        background: rgba(255, 255, 255, 0.03);
+        border-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    .platform-android .card {
+        background: rgba(255, 255, 255, 0.05);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .platform-ios *,
+    .platform-android * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .platform-android .ripple-effect::before {
+        transition: none;
+    }
+}
+
+/* Install prompt styling */
+.install-prompt {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background: var(--bg-card, #1a1a1a);
+    border: 1px solid var(--border, #2a2a2a);
+    border-radius: 12px;
+    padding: 16px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.install-prompt .install-icon {
+    font-size: 24px;
+}
+
+.install-prompt .install-text {
+    flex: 1;
+    font-size: 14px;
+    color: var(--text-primary, #ffffff);
+}
+
+.install-prompt .install-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.install-prompt .btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+.install-prompt .btn-primary {
+    background: var(--accent, #ff0080);
+    color: white;
+    border: none;
+}
+
+.install-prompt .btn-secondary {
+    background: transparent;
+    color: var(--text-secondary, #a0a0a0);
+    border: 1px solid var(--border, #2a2a2a);
+}
+
+/* Platform-specific install prompt adjustments */
+.platform-ios .install-prompt {
+    border-radius: 16px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(26, 26, 26, 0.9);
+}
+
+.platform-android .install-prompt {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
